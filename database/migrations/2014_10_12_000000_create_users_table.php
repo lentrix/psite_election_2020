@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('institution');
             $table->string('designation');
             $table->string('phone')->nullable();
-            $table->string('role')->default('member');
+            $table->string('role')->default('member'); //admin, officer, member
             $table->boolean('active')->default(1);
             $table->rememberToken();
             $table->timestamps();

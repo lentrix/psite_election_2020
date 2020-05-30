@@ -10,10 +10,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/')}}">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{url('/schedule')}}">Schedule</a>
-                </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="{{url('/election')}}">Election</a>
                 </li>
 

@@ -14,8 +14,8 @@ class UserSeeder extends Seeder
     {
         $data = [
             [
-                'lname' => 'Lauron',
-                'fname' => 'Roel',
+                'lname' => 'LAURON',
+                'fname' => 'ROEL',
                 'email' => 'roel@gmail.com',
                 'password' => bcrypt('password'),
                 'institution' => 'Cebu Institute of Technology - University',
@@ -24,8 +24,8 @@ class UserSeeder extends Seeder
             ],
 
             [
-                'lname' => 'Lenteria',
-                'fname' => 'Benjie',
+                'lname' => 'LENTERIA',
+                'fname' => 'BENJIE',
                 'email' => 'benjielenteria@yahoo.com',
                 'password' => bcrypt('password'),
                 'institution' => 'Mater Dei College',
@@ -33,8 +33,8 @@ class UserSeeder extends Seeder
                 'role' => 'admin',
             ],
             [
-                'lname' => 'Felizcuso',
-                'fname' => 'Larmie',
+                'lname' => 'FELIZCUSO',
+                'fname' => 'LARMIE',
                 'email' => 'larmie@gmail.com',
                 'password' => bcrypt('password'),
                 'institution' => 'Cebu Institute of Technology - University',
@@ -42,8 +42,8 @@ class UserSeeder extends Seeder
                 'role' => 'officer',
             ],
             [
-                'lname' => 'Montenegro',
-                'fname' => 'Chuchi',
+                'lname' => 'MONTENEGRO',
+                'fname' => 'CHUCHI',
                 'email' => 'chuchi@gmail.com',
                 'password' => bcrypt('password'),
                 'institution' => 'Silliman University',
