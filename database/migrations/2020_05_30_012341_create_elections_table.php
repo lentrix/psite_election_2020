@@ -17,6 +17,7 @@ class CreateElectionsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('status')->default('pending'); // pending, nomination, election, closed
+            $table->integer('no_of_candidates');
             $table->timestamp('status_at')->nullable();
             $table->timestamps();
         });

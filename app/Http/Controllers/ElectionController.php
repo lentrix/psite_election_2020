@@ -37,6 +37,7 @@ class ElectionController extends Controller
         Election::create([
             'title' => $request['title'],
             'status' => $request['status'],
+            'no_of_candidates' => $request['no_of_candidates'],
             'status_at' => date('Y-m-d h:i:s')
         ]);
 

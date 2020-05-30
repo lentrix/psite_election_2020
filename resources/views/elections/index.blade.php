@@ -13,4 +13,10 @@
 
 @endif
 
+@if($election->status == 'nomination')
+
+
+
+@endif
+
 @stop

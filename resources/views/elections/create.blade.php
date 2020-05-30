@@ -21,6 +21,10 @@
                 'election' => 'Election',
         ],null,['class'=>'form-control','placeholder'=>'Select status'])}}
         </div>
+        <div class="form-group">
+            {{Form::label('no_of_candidates','Number of Candidates')}}
+            {{Form::number('no_of_candidates',null,['class'=>'form-control'])}}
+        </div>
         <div class="form-group text-right">
             <button class="btn btn-primary" type="submit">Create Election</button>
         </div>

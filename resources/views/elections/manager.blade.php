@@ -21,6 +21,7 @@
     <thead>
         <th>Title</th>
         <th>Status</th>
+        <th class="text-center">Candidates</th>
         <th>Status Date</th>
     </thead>
     <tbody>
@@ -30,6 +31,7 @@
                 <a href='{{url("/election/$el->id")}}' class="link">{{$el->title}}</a>
             </td>
             <td>{{$el->status}}</td>
+            <td class="text-center">{{$el->no_of_candidates}}</td>
             <td>{{$el->status_at->format('F d, Y g:i:s A')}}</td>
         </tr>
         @endforeach
