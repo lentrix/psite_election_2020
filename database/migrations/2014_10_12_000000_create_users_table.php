@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->string('role')->default('member'); //admin, officer, member
             $table->boolean('active')->default(1);
+            $table->timestamp('nominated_at')->nullable();
+            $table->timestamp('voted_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

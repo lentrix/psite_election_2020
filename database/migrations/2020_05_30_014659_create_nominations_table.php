@@ -15,11 +15,13 @@ class CreateNominationsTable extends Migration
     {
         Schema::create('nominations', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('voter_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('nominee')->unsigned();
+            $table->bigInteger('election_id')->unsigned();
 
-            $table->foreign('voter_id')->references('id')->on('voters');
-            $table->foreign('nominee')->references('id')->on('voters');
+            $table->foreign('election_id')->references('id')->on('elections');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('nominee')->references('id')->on('users');
             $table->timestamps();
         });
     }

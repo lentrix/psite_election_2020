@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Election extends Model
 {
@@ -10,7 +11,13 @@ class Election extends Model
 
     public $dates = ['created_at','updated_at','status_at'];
 
-    public function voters() {
-        return $this->hasMany('App\Voter');
+    public function nominations() {
+        return $this->hasMany('App\Nomination');
+    }
+
+    public function nominatedUsers() {
+        return User::whereIn('id', Nomination::where('election_id', $this->id)->pluck('nominee'))
+                ->orderBy('lname')->orderBy('fname')
+                ->get();
     }
 }

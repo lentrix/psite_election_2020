@@ -38,4 +38,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function active() {
+        return User::where('active', 1)
+            ->orderBy('lname')->orderBy('fname')
+            ->get();
+    }
+
+    public function nominations($electionId) {
+        return Nomination::where('election_id', $electionId)
+            ->where('user_id', $this->id)
+            ->with('user')
+            ->get();
+    }
+
+    public function nominationCount($electionId) {
+        return Nomination::where('election_id',$electionId)
+            ->where('nominee', $this->id)->count();
+    }
 }

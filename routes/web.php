@@ -24,13 +24,20 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/election', 'ElectionController@index')->name('home');
 
     Route::get('/logout','SiteController@logout');
+
+    Route::post('/election/nominate/confirm', 'ElectionController@confirmNomination');
+    Route::post('/election/nominate', 'ElectionController@nominate');
+
+});
+
+Route::group(['middleware'=>['admin','officer']], function() {
+    Route::get('/election/{election}', 'ElectionController@show');
 });
 
 Route::group(['middleware'=>'admin'], function(){
     Route::get('/election/create','ElectionController@create');
     Route::post('/election','ElectionController@store');
     Route::get('/election/member', 'ElectionController@viewAsMember');
-    Route::get('/election/{election}', 'ElectionController@show');
     Route::put('/election/{election}', 'ElectionController@update');
     Route::post('/election/status', 'ElectionController@changeStatus');
     Route::get('/election/{election}/results', 'ElectionController@results');

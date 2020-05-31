@@ -47,6 +47,26 @@
 
 <h3>Summary of Nominations</h3>
 
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Institution</th>
+            <th class="text-center">Nominations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($election->nominatedUsers() as $u)
+        <tr>
+            <td>{{$u->lname}}</td>
+            <td>{{$u->fname}}</td>
+            <td>{{$u->institution}}</td>
+            <td class="text-center">{{$u->nominationCount($election->id)}}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 
 @endif
 

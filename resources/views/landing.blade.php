@@ -13,7 +13,7 @@
     <p>
         The unique virtual endeavor where IT educators and professionals from all over
         Central Visayas and beyond gather together to tackle pressing matters in the
-        advancement of IT Education in country and the world.
+        advancement of IT Education in the country and the world.
     </p>
     @if(auth()->guest())
     <p class="lead">

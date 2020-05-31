@@ -15,12 +15,14 @@ class CreateCandidatesTable extends Migration
     {
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('voter_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('election_id')->unsigned();
             $table->integer('nominations')->default(0);
             $table->string('remarks');
             $table->timestamps();
 
-            $table->foreign('voter_id')->references('id')->on('voters');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('election_id')->references('id')->on('elections');
         });
     }
 

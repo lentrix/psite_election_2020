@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Election;
+use App\Nomination;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ElectionController extends Controller
 {
@@ -19,7 +22,6 @@ class ElectionController extends Controller
                 'elections' => $elections
             ]);
         }else {
-
             return view('elections.index', compact('election'));
         }
     }
@@ -73,6 +75,11 @@ class ElectionController extends Controller
         $election->status = $request['status'];
         $election->save();
 
+        //nullify voted_at and nominated_at if nomination is activated.
+        if($election->status=="nomination") {
+            DB::table('users')->update(['voted_at'=>null, 'nominated_at'=>null]);
+        }
+
         return redirect('/election')->with('Info',$election->title . " has changed status to " . $request['status']);
     }
 
@@ -83,5 +90,56 @@ class ElectionController extends Controller
     public function viewAsMember() {
         $election = Election::whereIn('status', ['nomination','election'])->first();
         return view('elections.index', compact('election'));
+    }
+
+    public function nominate(Request $request) {
+        $election = Election::findOrFail($request['election_id']);
+
+        $count = count($request['check']);
+        $limit = $election->no_of_candidates;
+
+        if($limit < $count) {
+            return redirect()->back()->with('Error',"Sorry! Somehow you have submitted $count nominations which
+                is more than the current limit of $limit. This should not have been possible
+                under normal circumstances. Please go back and refrain from tweaking the system.");
+        }
+
+        $nominees = [];
+
+        foreach($request['check'] as $n) {
+            $nominees[] = User::find($n);
+        }
+
+        return view('elections.confirm_nomination',[
+            'election' => $election,
+            'nominees' => $nominees
+        ]);
+    }
+
+    public function confirmNomination(Request $request) {
+        $election = Election::findOrFail($request['election_id']);
+        $limit = $election->no_of_candidates;
+        $count = count($request['nominee']);
+
+        if($limit < $count) {
+            return redirect()->back()->with('Error',"Sorry! Somehow you have submitted $count nominations which
+                is more than the current limit of $limit. This should not have been possible
+                under normal circumstances. Please go back and refrain from tweaking the system.");
+        }
+
+        $user = User::findOrFail(auth()->user()->id);
+
+        foreach($request['nominee'] as $n) {
+            Nomination::create([
+                'user_id' => $user->id,
+                'nominee' => $n,
+                'election_id' => $election->id
+            ]);
+        }
+
+        $user->nominated_at = date('Y-m-d h:i:s');
+        $user->save();
+
+        return redirect('/election')->with('Info','You have successfully placed your nomination.');
     }
 }

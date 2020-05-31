@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>Election</h1>
+<h1>@if($election) {{strtoupper($election->status)}} @else No Active Election @endif</h1>
 
 @if(!$election)
 
@@ -13,10 +13,43 @@
 
 @endif
 
-@if($election->status == 'nomination')
+@if($election)
+    @if($election->status == 'nomination')
 
+        @include('elections._nominations')
 
-
+    @endif
 @endif
+
+@stop
+
+
+@section('scripts')
+
+<script>
+    var count = 0;
+    $(document).ready(function(){
+        $(".checker").click(function(){
+            if($(this).is(":checked")) {
+                count++;
+            }else {
+                count--;
+            }
+
+            if(count>{{$election ? $election->no_of_candidates : 0}}) {
+                $("#submit").prop("disabled", true);
+                $("#warning").show();
+            }else{
+                $("#submit").prop("disabled", false);
+                $("#warning").hide();
+            }
+        })
+        $("#clear").click(function(){
+            count = 0;
+            $("#submit").prop("disabled", false);
+            $("#warning").hide();
+        })
+    })
+</script>
 
 @stop
